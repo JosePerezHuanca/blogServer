@@ -22,7 +22,7 @@ class PostController{
                 let query= await postRepo.find({take: results,skip: (page -1) * results,relations:['user']});
                 let modifiedQuery=query.map(post=>{
                     let {user, ...rest}=post;
-                    let modifiedUser={id: user.id, userName: user.userName};
+                    let modifiedUser={id: user.id, userName: user.userName, isAdmin: user.isAdmin};
                     return {...rest, user: modifiedUser};
                 });
                 return res.status(200).json(modifiedQuery);
@@ -45,7 +45,7 @@ class PostController{
             let query=await postRepo.findOne({where: {creationDate: Between(startDate, endDate), urlSlug: slugParam}, relations:['user']});
             if (query) {
                 let { user, ...rest } = query;
-                let modifiedUser = { id: user.id, userName: user.userName };
+                let modifiedUser = { id: user.id, userName: user.userName, isAdmin: user.isAdmin };
                 let modifiedQuery = { ...rest, user: modifiedUser };
                 return res.status(200).json(modifiedQuery);
             }
