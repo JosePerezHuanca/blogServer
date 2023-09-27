@@ -48,7 +48,7 @@ class UserController{
                 if(match){
                     let paiload={id: query.id, isAdmin: query.isAdmin};
                     const token=jwt.sign(paiload, config.secret,{expiresIn: '1h'});
-                    return res.status(200).json({message: 'Se inició sesión', token: token});
+                    return res.status(200).json({message: 'Se inició sesión', token: token, isAdmin: query.isAdmin});
                 }
             }
             return res.status(400).json({message: 'error en los datos'});
