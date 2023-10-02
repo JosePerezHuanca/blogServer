@@ -90,7 +90,7 @@ class PostController{
             if(!query){
                 return res.status(404).json({message: 'no se puede actualizar porque no existe'});
             }
-            if(query.user!==idToken){
+            if(query.user.id!==idToken){
                 return res.status(403).json({message: 'no estás autorizado para realizar esta acción'});
             }
             let postObj=Object.assign(new Post(),req.body);
@@ -118,7 +118,7 @@ class PostController{
             if(!query){
                 return res.status(404).json({message: 'no se puede borrar porque no existe'});
             }
-            if(query.user!== idToken){
+            if(query.user.id!== idToken){
                 return res.status(403).json({message: 'no estás autirizado para realizar esta acción'});
             }
             if(isAdminToken===true){
