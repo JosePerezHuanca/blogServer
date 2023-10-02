@@ -86,7 +86,7 @@ class PostController{
             let id:number=parseInt(req.params.id);
             let idToken=req.user.id;
             let isAdminToken=req.user.isAdmin;
-            let query=await postRepo.findOneBy({id: id});
+            let query=await postRepo.findOne({where:{id: id}, relations:['user']});
             if(!query){
                 return res.status(404).json({message: 'no se puede actualizar porque no existe'});
             }
@@ -114,7 +114,7 @@ class PostController{
             let id:number=parseInt(req.params.id);
             let idToken=req.user.id;
             let isAdminToken=req.user.isAdmin;
-            let query=await postRepo.findOneBy({id: id});
+            let query=await postRepo.findOne({where:{id: id}, relations:['user']});
             if(!query){
                 return res.status(404).json({message: 'no se puede borrar porque no existe'});
             }
