@@ -96,6 +96,7 @@ class PostController{
             let postObj=Object.assign(new Post(),req.body);
             let slug= slugify(req.body.title);
             postObj.urlSlug=slug;
+            postObj.creationDate=query.creationDate;
             let errors=await validate(postObj);
             if(errors.length>0){
                 return res.status(400).json(errors);
