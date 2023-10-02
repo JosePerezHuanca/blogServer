@@ -94,6 +94,8 @@ class PostController{
                 return res.status(403).json({message: 'no estás autorizado para realizar esta acción'});
             }
             let postObj=Object.assign(new Post(),req.body);
+            let slug= slugify(req.body.title);
+            postObj.urlSlug=slug;
             let errors=await validate(postObj);
             if(errors.length>0){
                 return res.status(400).json(errors);
