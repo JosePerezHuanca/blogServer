@@ -20,12 +20,14 @@ class PostController{
                     results=10;
                 }
                 let query= await postRepo.find({take: results,skip: (page -1) * results,relations:['user']});
+                let totalResults= await postRepo.count();
+                let totalPages=Math.ceil(totalResults/results);
                 let modifiedQuery=query.map(post=>{
                     let {user, ...rest}=post;
                     let modifiedUser={id: user.id, userName: user.userName, isAdmin: user.isAdmin};
                     return {...rest, user: modifiedUser};
                 });
-                return res.status(200).json(modifiedQuery);
+                return res.status(200).json({posts: modifiedQuery, totalPages});
             }
         }
         catch(error){
