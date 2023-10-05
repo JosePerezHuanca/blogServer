@@ -19,7 +19,7 @@ class PostController{
                 if(isNaN(results)||results===undefined){
                     results=10;
                 }
-                let query= await postRepo.find({take: results,skip: (page -1) * results,relations:['user']});
+                let query= await postRepo.find({take: results,skip: (page -1) * results,relations:['user'], order:{creationDate: 'DESC'}});
                 let totalResults= await postRepo.count();
                 let totalPages=Math.ceil(totalResults/results);
                 let modifiedQuery=query.map(post=>{
